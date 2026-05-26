@@ -1,3 +1,5 @@
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 # Environmental App 🌍💨
 
 **Environmental App** is a modern and comprehensive Android application designed to operate as a digital observatory for environmental and meteorological conditions. The application aims to inform and protect citizens by consolidating multiple data sources and calculating complex hazard indices in real time.
