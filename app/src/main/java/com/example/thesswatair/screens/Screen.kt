@@ -1,4 +1,4 @@
-package com.example.thesswatair.ui_screens
+package com.example.thesswatair.screens
 
 sealed class Screen(val route:String) {
     object Dashboard:Screen(route = "dashboard_screen")

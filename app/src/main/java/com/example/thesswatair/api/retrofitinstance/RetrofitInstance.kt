@@ -1,8 +1,8 @@
-package com.example.thesswatair.api
+package com.example.thesswatair.api.retrofitinstance
 
+import com.example.thesswatair.api.interfaceForAPIs.interfaceForAPIs
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 
 object RetrofitInstance {
     private val  retrofit = Retrofit.Builder()
@@ -10,7 +10,7 @@ object RetrofitInstance {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val api: AirQApi by lazy{
-        retrofit.create(AirQApi::class.java)
+    val api: interfaceForAPIs by lazy{
+        retrofit.create(interfaceForAPIs::class.java)
     }
 }

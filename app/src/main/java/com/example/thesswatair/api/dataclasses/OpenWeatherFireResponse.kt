@@ -1,4 +1,4 @@
-package com.example.thesswatair.api
+package com.example.thesswatair.api.dataclasses
 
 data class OpenWeatherFireResponse(
     val main: MainFireData,

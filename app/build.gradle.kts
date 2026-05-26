@@ -32,6 +32,7 @@ android {
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"${properties.getProperty("OPEN_WEATHER_API_KEY")?.trim() ?: ""}\"")
         buildConfigField("String", "WAQI_API_TOKEN", "\"${properties.getProperty("WAQI_API_TOKEN")?.trim() ?: ""}\"")
         buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"${properties.getProperty("GOOGLE_MAPS_API_KEY")?.trim() ?: ""}\"")
+        buildConfigField("String","WEATHER_API_KEY","\"${properties.getProperty("WEATHER_API_KEY")?.trim() ?: ""}\"")
     }
 
     buildTypes {

@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ThessWatAir"
+rootProject.name = "Environmental-App"
 include(":app")
  

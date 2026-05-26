@@ -1,4 +1,4 @@
-package com.example.thesswatair.api
+package com.example.thesswatair.api.dataclasses
 
 data class WAQIResponse(
     val status: String,
@@ -9,7 +9,8 @@ data class WaqiStation(
     val lon: Double,
     val aqi: String,
     val station: WaqiStationInfo,
-    val uid: Int
+    val uid: Int,
+    val geo : List<Double>?
 )
 data class WaqiStationInfo(
     val name: String,

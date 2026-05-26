@@ -1,4 +1,4 @@
-package com.example.thesswatair.ui_screens
+package com.example.thesswatair.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.thesswatair.api.CityRankingData
+import com.example.thesswatair.api.dataclasses.CityRankingData
 import com.example.thesswatair.viewmodel.AirQViewModel
 @Composable
 fun RankingScreen(airViewModel: AirQViewModel){
@@ -82,7 +82,7 @@ fun CityRow(rank:Int,data: CityRankingData){
         Text(text=rank.toString(),modifier=Modifier.width(30.dp))
         Column(modifier=Modifier.weight(1f)){
             Text(text=data.city, fontWeight = FontWeight.Bold)
-            Text(text=data.country,style= MaterialTheme.typography.bodySmall,color=Color.Gray)
+            Text(text=data.country,style= MaterialTheme.typography.bodySmall,color=Color.DarkGray)
         }
         Surface(
             color=aqiColor,
@@ -91,7 +91,7 @@ fun CityRow(rank:Int,data: CityRankingData){
         ){
             Text(
                 text=data.pollution.aqius.toString(),
-                color=Color.White,
+                color=Color.Black,
                 textAlign = TextAlign.Center,
                 modifier=Modifier.padding(vertical = 4.dp),
                 fontWeight = FontWeight.Bold

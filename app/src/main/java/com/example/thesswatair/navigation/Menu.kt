@@ -1,4 +1,4 @@
-package com.example.thesswatair.menu
+package com.example.thesswatair.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -41,8 +41,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.setValue
-import com.example.thesswatair.navigation.NavigationHost
-import com.example.thesswatair.ui_screens.Screen
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.example.thesswatair.screens.Screen
 import com.example.thesswatair.viewmodel.AirQViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,33 +51,34 @@ fun Menu(airViewModel: AirQViewModel){
     val menuItems=listOf(
         MenuItems(
             id = Screen.Dashboard.route,
-            title = "My Position",
+            title = "Καρτέλα ελέγχου",
             contentDescription = "Go to the dashboard",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home
         ),
         MenuItems(
             id = Screen.Map.route,
-            title = "Map",
+            title = "Χάρτης",
             contentDescription = "Go to the map",
             selectedIcon = Icons.Filled.Place,
             unselectedIcon = Icons.Outlined.Place
         ),
         MenuItems(
             id = Screen.Rankings.route,
-            title = "Ranking",
+            title = "Κατάταξη",
             contentDescription = "Go to the ranking",
             selectedIcon = Icons.Filled.List,
             unselectedIcon = Icons.Outlined.List
         ),
         MenuItems(
             id = Screen.Searching.route,
-            title="Search stations in other cities",
+            title = "Αναζήτηση σταθμών σε άλλες πόλεις",
             contentDescription = "Go to the searching of other cities",
             selectedIcon = Icons.Filled.Search,
             unselectedIcon = Icons.Outlined.Search
         )
     )
+
     Surface(
         modifier = Modifier.fillMaxSize(),color= MaterialTheme.colorScheme.background
     ){
@@ -88,6 +89,9 @@ fun Menu(airViewModel: AirQViewModel){
 
         val currentBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute=currentBackStackEntry?.destination?.route
+        val currentMenuTitle = menuItems.find{
+            it.id == currentRoute
+        }?.title//τίτλος πάνω στο μενού για την τρέχουσα οθόνη
 
         ModalNavigationDrawer(
             drawerContent = {
@@ -101,26 +105,45 @@ fun Menu(airViewModel: AirQViewModel){
                                 selectedItemIndex=index
                                 scope.launch { drawerState.close()
                                  if(currentRoute!=item.id){
-                                     navController.navigate(item.id){launchSingleTop=true
-                                     popUpTo(Screen.Dashboard.route)}
+                                     navController.navigate(item.id){
+                                         popUpTo(navController.graph.findStartDestination().id){
+                                             saveState=true
+                                         }
+                                         launchSingleTop=true
+                                         restoreState=true
+                                     }
                                  }
                                 }
                             },
-                            icon={Icon(imageVector = if(selectedItemIndex==index){item.selectedIcon}else item.unselectedIcon, contentDescription = item.title)},
+                            icon={
+                                Icon(imageVector = if(selectedItemIndex==index){
+                                        item.selectedIcon
+                                    }else item.unselectedIcon, contentDescription = item.title)
+                                 },
                             modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                         )
 
                     }
                 }
             },
-            drawerState=drawerState
+            drawerState=drawerState,
+            gesturesEnabled = false
         ){
             Scaffold(
                 topBar={
                     TopAppBar(
                         modifier=Modifier.background(MaterialTheme.colorScheme.primary),
-                        title={Text("BreatheAir")},
-                        navigationIcon = { IconButton(onClick = {scope.launch { drawerState.open() }}){Icon(imageVector=Icons.Default.Menu,contentDescription="Menu")}}
+                        title={Text(text="$currentMenuTitle")},
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    drawerState.open()
+                                }
+                            }
+                            ){
+                                Icon(imageVector=Icons.Default.Menu,contentDescription="Menu")
+                            }
+                        }
                     )
                 }
             ){

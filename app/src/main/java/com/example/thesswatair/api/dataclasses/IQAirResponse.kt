@@ -1,4 +1,4 @@
-package com.example.thesswatair.api
+package com.example.thesswatair.api.dataclasses
 data class IQAirResponse(
     val status:String,
     val data: AirData

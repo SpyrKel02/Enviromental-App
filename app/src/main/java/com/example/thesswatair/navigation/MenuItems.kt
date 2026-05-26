@@ -1,4 +1,4 @@
-package com.example.thesswatair.menu
+package com.example.thesswatair.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
