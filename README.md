@@ -34,6 +34,15 @@ The application is built using modern Android development best practices and cut
 
 ---
 
+## 💻 Getting Started
+
+To run this project locally, follow these steps:
+
+1. **Clone the repository:**
+   git clone [https://github.com/SpyrKel02/Environmental-App.git](https://github.com/SpyrKel02/Environmental-App.git)
+
+---
+
 ## 🔒 Security Note & API Keys
 
 In accordance with security best practices, all **API Keys** used by the application have been excluded from this public repository via the `.gitignore` file and are managed locally inside `local.properties`.
