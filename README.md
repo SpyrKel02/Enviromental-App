@@ -21,11 +21,8 @@
 
 ---
 ## 📸 Screenshots
+<img width="368" height="766" alt="Screenshot 2026-05-28 182034" src="https://github.com/user-attachments/assets/765e8a6d-5db4-4efb-bbd7-1b22e2a15535" />
 
-| Dashboard | Map | Ranking | Searching
-| :-: | :-: |
-| "<img width="368" height="766" alt="Screenshot 2026-05-28 182034" src="https://github.com/user-attachments/assets/21cf3a59-335c-424e-93a8-08cf24655d11" />
-|
 ---
 ## 🛠️ Tech Stack
 
