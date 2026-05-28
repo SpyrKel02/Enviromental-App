@@ -40,26 +40,33 @@ The application is built using modern Android development best practices and cut
 The application strictly follows the official Android Architecture Guidelines, implementing the **MVVM (Model-View-ViewModel)** pattern combined with a Repository pattern for clean separation of concerns.
 
 ┌────────────────────────────────────────────────────────┐
-│                      VIEW LAYER                        │
-│         (Jetpack Compose UI & Screen States)           │
+│                   FRONTEND (UI Layer)                  │
+│  Jetpack Compose Screens:                              │
+│  • HomeScreen         • AirQualityScreen               │
+│  • MapScreen (Google Maps SDK) • WorldRankingScreen    │
 └───────────────────────────┬────────────────────────────┘
-│ (Observes UI State / Flows)
+│ (Observes UI State via Kotlin Flows)
 ▼
 ┌────────────────────────────────────────────────────────┐
-│                    VIEWMODEL LAYER                     │
-│       (Manages UI State & Business Logic Triggers)      │
+│                VIEWMODEL LAYER (Business Logic)         │
+│  • MainViewModel / WeatherViewModel                    │
+│  • Manages State-driven Recomposition & Coroutine Scope│
 └───────────────────────────┬────────────────────────────┘
-│ (Calls Use Cases/Repos)
+│ (Requests clean data models)
 ▼
 ┌────────────────────────────────────────────────────────┐
 │                    REPOSITORY LAYER                    │
-│      (Single Source of Truth & Data Coordination)      │
+│  • WeatherRepository / EnvironmentalRepository         │
+│  (Acts as the Single Source of Truth & Handles Cache)  │
 └─────────────┬────────────────────────────┬─────────────┘
 │                            │
-▼                            ▼
+▼ (Network Requests)         ▼ (Fallback Storage)
 ┌──────────────────────────┐  ┌──────────────────────────┐
 │    REMOTE DATA SOURCE    │  │    LOCAL DATA SOURCE     │
-│   (Retrofit - 4 APIs)    │  │   (SharedPreferences)    │
+│   Retrofit API Client    │  │    SharedPreferences     │
+│   • WeatherAPI           │  │   (Lightweight Cache for │
+│   • OpenWeatherMap       │  │       Offline Mode)      │
+│   • IQAir & WAQI         │  │                          │
 └──────────────────────────┘  └──────────────────────────┘
 
 
