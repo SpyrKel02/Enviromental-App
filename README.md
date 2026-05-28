@@ -84,7 +84,7 @@ app/src/main/java/com/example/thesswatair/
 │   └── AirQualityViewModel.kt        # Handles presentation state pipelines via Flows
 │
 └── MainActivity.kt                   # Core application runtime entry point
-
+```
 ---
 
 ## 💻 Getting Started
