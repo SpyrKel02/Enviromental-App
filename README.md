@@ -84,8 +84,6 @@ app/src/main/java/com/example/thesswatair/
 │   ├── Screen.kt                     # Sealed class containing application screen pathways
 │   └── SearchScreen.kt               # Interactive query engine looking up specific data
 │
-├── ui.theme/                         # App Design System styling (Colors, Typography, Themes)
-│
 ├── viewmodel/                        # Architecture Layer StateHolders
 │   └── AirQualityViewModel.kt        # Handles presentation state pipelines via Flows
 │
