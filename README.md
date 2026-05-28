@@ -39,35 +39,32 @@ The application is built using modern Android development best practices and cut
 
 The application strictly follows the official Android Architecture Guidelines, implementing the **MVVM (Model-View-ViewModel)** pattern combined with a Repository pattern for clean separation of concerns.
 
-┌────────────────────────────────────────────────────────┐
-│                   FRONTEND (UI Layer)                  │
-│  Jetpack Compose Screens:                              │
-│  • HomeScreen         • AirQualityScreen               │
-│  • MapScreen (Google Maps SDK) • WorldRankingScreen    │
-└───────────────────────────┬────────────────────────────┘
-│ (Observes UI State via Kotlin Flows)
-▼
-┌────────────────────────────────────────────────────────┐
-│                VIEWMODEL LAYER (Business Logic)         │
-│  • MainViewModel / WeatherViewModel                    │
-│  • Manages State-driven Recomposition & Coroutine Scope│
-└───────────────────────────┬────────────────────────────┘
-│ (Requests clean data models)
-▼
-┌────────────────────────────────────────────────────────┐
-│                    REPOSITORY LAYER                    │
-│  • WeatherRepository / EnvironmentalRepository         │
-│  (Acts as the Single Source of Truth & Handles Cache)  │
-└─────────────┬────────────────────────────┬─────────────┘
-│                            │
-▼ (Network Requests)         ▼ (Fallback Storage)
-┌──────────────────────────┐  ┌──────────────────────────┐
-│    REMOTE DATA SOURCE    │  │    LOCAL DATA SOURCE     │
-│   Retrofit API Client    │  │    SharedPreferences     │
-│   • WeatherAPI           │  │   (Lightweight Cache for │
-│   • OpenWeatherMap       │  │       Offline Mode)      │
-│   • IQAir & WAQI         │  │                          │
-└──────────────────────────┘  └──────────────────────────┘
+📐 Architecture & System Design
+
+The application is a native Android app built using the modern **MVVM (Model-View-ViewModel)** architectural pattern recommended by Google, ensuring unidirectional data flow and clean separation of concerns.
+
+```mermaid
+graph TD
+    View["📺 FRONTEND (UI Layer)<br>Jetpack Compose Screens<br>(Home, AirQuality, Map, Ranking)"]
+    VM["⚙️ VIEWMODEL LAYER<br>State & Business Logic<br>(MainViewModel / WeatherViewModel)"]
+    Repo["📦 REPOSITORY LAYER<br>Single Source of Truth<br>(Handles Cache & Data Sync)"]
+    Remote["🌐 REMOTE DATA SOURCE<br>Retrofit API Client<br>(WeatherAPI, OpenWeatherMap, IQAir, WAQI)"]
+    Local["💾 LOCAL DATA SOURCE<br>SharedPreferences<br>(Offline Mode Cache)"]
+
+    View -->|Observes UI State via Flows| VM
+    VM -->|Requests clean data models| Repo
+    Repo -->|Network Requests| Remote
+    Repo -->|Fallback Storage| Local
+
+    classDef ui fill:#4285F4,stroke:#333,stroke-width:2px,color:#fff;
+    classDef vm fill:#7F52FF,stroke:#333,stroke-width:2px,color:#fff;
+    classDef repo fill:#3DDC84,stroke:#333,stroke-width:2px,color:#fff;
+    classDef data fill:#5f6368,stroke:#333,stroke-width:2px,color:#fff;
+
+    class View ui;
+    class VM vm;
+    class Repo repo;
+    class Remote,Local data;
 
 
 ### Architectural Modules:
