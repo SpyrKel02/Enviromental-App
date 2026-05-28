@@ -24,7 +24,8 @@
 
 | Dashboard | Map | Ranking | Searching
 | :-: | :-: |
-| <img src="C:\Users\spyro\OneDrive\Εικόνες\Στιγμιότυπα οθόνης\Screenshot 2026-05-28 182034.png" width="260"> |
+| <img src="<img width="368" height="766" alt="Screenshot 2026-05-28 182034" src="https://github.com/user-attachments/assets/21cf3a59-335c-424e-93a8-08cf24655d11" />
+" width="260"> |
 ---
 ## 🛠️ Tech Stack
 
