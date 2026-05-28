@@ -35,6 +35,44 @@ The application is built using modern Android development best practices and cut
 
 ---
 
+## 📐 Architecture & Data Flow
+
+The application strictly follows the official Android Architecture Guidelines, implementing the **MVVM (Model-View-ViewModel)** pattern combined with a Repository pattern for clean separation of concerns.
+
+┌────────────────────────────────────────────────────────┐
+│                      VIEW LAYER                        │
+│         (Jetpack Compose UI & Screen States)           │
+└───────────────────────────┬────────────────────────────┘
+│ (Observes UI State / Flows)
+▼
+┌────────────────────────────────────────────────────────┐
+│                    VIEWMODEL LAYER                     │
+│       (Manages UI State & Business Logic Triggers)      │
+└───────────────────────────┬────────────────────────────┘
+│ (Calls Use Cases/Repos)
+▼
+┌────────────────────────────────────────────────────────┐
+│                    REPOSITORY LAYER                    │
+│      (Single Source of Truth & Data Coordination)      │
+└─────────────┬────────────────────────────┬─────────────┘
+│                            │
+▼                            ▼
+┌──────────────────────────┐  ┌──────────────────────────┐
+│    REMOTE DATA SOURCE    │  │    LOCAL DATA SOURCE     │
+│   (Retrofit - 4 APIs)    │  │   (SharedPreferences)    │
+└──────────────────────────┘  └──────────────────────────┘
+
+
+### Architectural Modules:
+
+1. **View Layer (UI):** Built entirely with Jetpack Compose. It is completely passive, state-driven, and responds instantly to updates emitted by the ViewModel.
+2. **ViewModel Layer:** Acts as a bridge between the UI and the Data layer. It retains state during configuration changes and uses Kotlin Flows to stream clean UI states to the views.
+3. **Repository Layer:** Encapsulates the logic for data operations. It decides whether to fetch fresh environmental statistics from the network or fallback to locally cached data.
+4. **Data Sources:** * **Remote:** Retrofit interfaces for WeatherAPI, OpenWeatherMap, IQAir, and WAQI.
+   * **Local:** SharedPreferences acting as a lightweight persistent cache for offline mode.
+
+---
+
 ## 💻 Getting Started
 
 To run this project locally, follow these steps:
