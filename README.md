@@ -22,7 +22,7 @@
 ---
 ## 📸 Screenshots
 
-| Dashboard | Interactive Map |
+| Dashboard | Map | Ranking | Searching
 | :-: | :-: |
 | <img src="C:\Users\spyro\OneDrive\Εικόνες\Στιγμιότυπα οθόνης\Screenshot 2026-05-28 182034.png" width="260"> |
 ---
