@@ -35,45 +35,55 @@ The application is built using modern Android development best practices and cut
 
 ---
 
-## 📐 Architecture & Data Flow
+## 📁 Project Structure
 
-The application strictly follows the official Android Architecture Guidelines, implementing the **MVVM (Model-View-ViewModel)** pattern combined with a Repository pattern for clean separation of concerns.
+The codebase is organized into modular packages based on feature and architectural responsibility, tracking the core components of the application:
 
-📐 Architecture & System Design
-
-The application is a native Android app built using the modern **MVVM (Model-View-ViewModel)** architectural pattern recommended by Google, ensuring unidirectional data flow and clean separation of concerns.
-
-```mermaid
-graph TD
-    View["📺 FRONTEND (UI Layer)<br>Jetpack Compose Screens<br>(Home, AirQuality, Map, Ranking)"]
-    VM["⚙️ VIEWMODEL LAYER<br>State & Business Logic<br>(MainViewModel / WeatherViewModel)"]
-    Repo["📦 REPOSITORY LAYER<br>Single Source of Truth<br>(Handles Cache & Data Sync)"]
-    Remote["🌐 REMOTE DATA SOURCE<br>Retrofit API Client<br>(WeatherAPI, OpenWeatherMap, IQAir, WAQI)"]
-    Local["💾 LOCAL DATA SOURCE<br>SharedPreferences<br>(Offline Mode Cache)"]
-
-    View -->|Observes UI State via Flows| VM
-    VM -->|Requests clean data models| Repo
-    Repo -->|Network Requests| Remote
-    Repo -->|Fallback Storage| Local
-
-    classDef ui fill:#4285F4,stroke:#333,stroke-width:2px,color:#fff;
-    classDef vm fill:#7F52FF,stroke:#333,stroke-width:2px,color:#fff;
-    classDef repo fill:#3DDC84,stroke:#333,stroke-width:2px,color:#fff;
-    classDef data fill:#5f6368,stroke:#333,stroke-width:2px,color:#fff;
-
-    class View ui;
-    class VM vm;
-    class Repo repo;
-    class Remote,Local data;
-
-
-### Architectural Modules:
-
-1. **View Layer (UI):** Built entirely with Jetpack Compose. It is completely passive, state-driven, and responds instantly to updates emitted by the ViewModel.
-2. **ViewModel Layer:** Acts as a bridge between the UI and the Data layer. It retains state during configuration changes and uses Kotlin Flows to stream clean UI states to the views.
-3. **Repository Layer:** Encapsulates the logic for data operations. It decides whether to fetch fresh environmental statistics from the network or fallback to locally cached data.
-4. **Data Sources:** * **Remote:** Retrofit interfaces for WeatherAPI, OpenWeatherMap, IQAir, and WAQI.
-   * **Local:** SharedPreferences acting as a lightweight persistent cache for offline mode.
+```text
+app/src/main/java/com/example/thesswatair/
+├── api/                              # Networking & API Configurations
+│   ├── dataclasses/                  # API Data Transfer Objects (DTOs)
+│   │   ├── IQAirResponse.kt
+│   │   ├── OpenWeatherFireResponse.kt
+│   │   ├── WAQIResponse.kt
+│   │   └── WeatherApiResponse.kt
+│   ├── interfaceForAPIs/             # Retrofit endpoints definitions
+│   │   └── interfaceForAPIs.kt
+│   └── retrofitInstance/             # Retrofit network client initialization
+│       └── RetrofitInstance.kt
+│
+├── navigation/                       # Navigation Graph & Side Menu Routing
+│   ├── Menu.kt
+│   ├── MenuItems.kt
+│   └── NavigationHost.kt             # Compose NavHost component configuration
+│
+├── notifications/                    # Background Services & Alert Dispatches
+│   ├── FireWorkManager.kt            # WorkManager scheduler for periodic safety evaluations
+│   └── NotificationHelper.kt         # System notification builders and channels
+│
+├── other/                            # Business Logic, Calculators & Utility Managers
+│   ├── CitiesList.kt
+│   ├── EnvironmentalCalculator.kt    # Algorithms computing real-time FWI, RRI, and Heat Index
+│   ├── EnvironmentInfo.kt
+│   ├── HealthAdvice.kt
+│   ├── OfflineCache.kt               # SharedPreferences wrapper handling data caching
+│   ├── SelectedAreaInfo.kt
+│   ├── ThessalonikiAreas.kt
+│   └── UserLocationManager.kt        # Location services wrapper (GPS location fetching)
+│
+├── screens/                          # Frontend Presentation Layer (Jetpack Compose Views)
+│   ├── DashboardScreen.kt            # Application home layout and dashboard metrics
+│   ├── MapScreen.kt                  # Google Maps integration with 1km station zone layers
+│   ├── RankingScreen.kt              # Global air pollution benchmarking screen
+│   ├── Screen.kt                     # Sealed class containing application screen pathways
+│   └── SearchScreen.kt               # Interactive query engine looking up specific data
+│
+├── ui.theme/                         # App Design System styling (Colors, Typography, Themes)
+│
+├── viewmodel/                        # Architecture Layer StateHolders
+│   └── AirQualityViewModel.kt        # Handles presentation state pipelines via Flows
+│
+└── MainActivity.kt                   # Core application runtime entry point
 
 ---
 
