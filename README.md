@@ -21,7 +21,7 @@
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🛠️ Tech Stack
 
 The application is built using modern Android development best practices and cutting-edge technologies:
 
